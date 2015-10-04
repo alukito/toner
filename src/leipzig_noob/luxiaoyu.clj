@@ -11,6 +11,7 @@
   (->>
     music
     (where :time (bpm 19))
+    (where :duration (bpm 19))
     (where :pitch overtone/note)
     play))
 
@@ -18,7 +19,7 @@
   (times 2
          (phrase [1/16 1/16 1/16 1/16 1/16 1/16 1/16 1/16]
                  [:C3  :G3  :C4  :D4  :E4  :D4  :C4  :E4 ])))
-
+phrase-riff1
 (def phrase-riff2
   (times 2
          (phrase [1/16 1/16 1/16 1/16 1/16 1/16 1/16 1/16]
