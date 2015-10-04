@@ -1,16 +1,25 @@
 (ns leipzig-noob.zaocao
   (:use [leipzig melody scale live]
         [overtone.inst.piano])
-  (:require [overtone.live :as overtone]))
+  (:require [overtone.live :as overtone]
+            [overtone.studio.midi :as midi]))
 
-(defmethod play-note :default [{midi :pitch}]
-  (when midi (piano midi)))
+(def synth-out (first (midi/midi-connected-receivers)))
+
+(defn midiout
+  [pitch duration]
+  (midi/midi-note synth-out pitch 100 duration))
+
+(defmethod play-note :default [{midi :pitch duration :duration}]
+  (when midi (midiout midi (* 1500 duration))))
+
+;(defmethod play-note :default [{midi :pitch}]
+;  (when midi (piano midi)))
 
 (defn play-music [music]
   (->>
     music
-    (where :time (bpm 19))
-    (where :duration (bpm 19))
+    (tempo (bpm 20))
     play))
 
 (def bass1
